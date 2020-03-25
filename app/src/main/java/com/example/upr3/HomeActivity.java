@@ -2,14 +2,22 @@ package com.example.upr3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
     int value = 0;
+
+    public void toMainActivity(View view) {
+        Intent loginIntent = new Intent(getApplicationContext(), MainActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(loginIntent);
+    }
 
     private class TaskThreadDoUI extends AsyncTask<String, Void, String> {
         @Override

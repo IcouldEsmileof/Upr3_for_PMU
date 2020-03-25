@@ -44,7 +44,28 @@
         android:padding="10dip"
         android:textColor="#e30000"
         android:textStyle="bold" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dip"
+        android:text=" " />
 
+    <TextView
+        android:id="@+id/question"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:layout_marginTop="15dip"
+        android:text='Ако "да" и "не" означаваха едно и също нещо, какво щеше да е то?'
+        android:textColor="#e30000"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/answer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Да или не?"
+        android:inputType="text" />
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="fill_parent"
@@ -62,7 +83,7 @@
         android:layout_marginTop="40dip"
         android:background="@null"
         android:onClick="navigatetoRegisterActivity"
-        android:text="Signup"
+        android:text="Sign up"
         android:textColor="#228b22"
         android:textStyle="bold" />
 </LinearLayout>

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     // Password Edit View Object
     EditText pwdET;
 
+    EditText answer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,36 +51,43 @@ public class MainActivity extends AppCompatActivity {
         prgDialog.setMessage("Please wait...");
         // Set Cancelable as False
         prgDialog.setCancelable(false);
+
+        answer=findViewById(R.id.answer);
     }
 
     /**
      * Метода се задейства, когато Login бутона е натиснат * * @param view
      */
     public void loginUser(View view) {
-        // взима стойността на Email ET control
-        String email = emailET.getText().toString();
-        // взима стойността на Password ET control
-        String password = pwdET.getText().toString();
-        // инстанция на Http Request обект за параметри
-        RequestParams params = new RequestParams();
-        // когато Name Edit View, Email Edit View и Password Edit View имат стойност различна от Null
-        if (Utility.isNotNull(email) && Utility.isNotNull(password)) {
-            // Когато въведеният Email е валиден
-            if (Utility.validate(email)) {
-                // Поставяне на Http параметър username от полето на формата
-                params.put("username", email);
-                // Поставяне на Http параметър password от полето на формата
-                params.put("password", password);
-                // Извикване на RESTful Web Service със Http параметри
-                invokeWS(params);
+        if("да".equals(answer.getText().toString().toLowerCase())||"не".equals(answer.getText().toString().toLowerCase())){
+            Toast.makeText(getApplicationContext(), "That's all I needed to know.", Toast.LENGTH_LONG).show();
+            navigatetoHomeActivity();
+        }else {
+            // взима стойността на Email ET control
+            String email = emailET.getText().toString();
+            // взима стойността на Password ET control
+            String password = pwdET.getText().toString();
+            // инстанция на Http Request обект за параметри
+            RequestParams params = new RequestParams();
+            // когато Name Edit View, Email Edit View и Password Edit View имат стойност различна от Null
+            if (Utility.isNotNull(email) && Utility.isNotNull(password)) {
+                // Когато въведеният Email е валиден
+                if (Utility.validate(email)) {
+                    // Поставяне на Http параметър username от полето на формата
+                    params.put("username", email);
+                    // Поставяне на Http параметър password от полето на формата
+                    params.put("password", password);
+                    // Извикване на RESTful Web Service със Http параметри
+                    invokeWS(params);
+                }
+                // При невалиден Email
+                else {
+                    Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_LONG).show();
+                }
+                // При празно поле
+            } else {
+                Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
             }
-            // При невалиден Email
-            else {
-                Toast.makeText(getApplicationContext(), "Please enter valid email", Toast.LENGTH_LONG).show();
-            }
-            // При празно поле
-        } else {
-            Toast.makeText(getApplicationContext(), "Please fill the form, don't leave any field blank", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -145,9 +153,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(loginIntent);
     }
 
-    /**
-     * метод навигиращ от Register Activity към MainActivity ( Login Activity )
-     */
+
     public void navigatetoHomeActivity() {
         Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
